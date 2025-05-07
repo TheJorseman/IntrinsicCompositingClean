@@ -53,7 +53,8 @@ setup(
         'timm',
         'scipy',
         'opencv-python==4.11.0.86',
-        'imageio'
+        'imageio',
+        'antialiased_cnns'
     ],
 
     python_requires='>=3.7', # Versión mínima de Python requerida
