@@ -79,14 +79,6 @@ def spherical2cart(r, theta, phi):
     z = r * torch.cos(theta)
     return x, y, z
 
-
-
-def spherical2cart(r, theta, phi):
-    x = r * np.sin(theta) * np.cos(phi)
-    y = r * np.sin(theta) * np.sin(phi)
-    z = r * np.cos(theta)
-    return x, y, z
-
 def run_optimization_no_backward(params_init, A, b, max_iter=500):
     # Función objetivo para minimizar
     A = A.numpy()
