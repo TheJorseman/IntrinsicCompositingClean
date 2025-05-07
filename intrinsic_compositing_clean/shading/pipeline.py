@@ -107,7 +107,7 @@ def run_optimization_no_backward(params_init, A, b, max_iter=500):
     # Minimización usando Nelder-Mead (no requiere gradientes)
     result = minimize(
         objective, 
-        params_init.numpy(), 
+        params_init.detach().numpy(), 
         method='Nelder-Mead', 
         bounds=bounds, 
         options={'maxiter': max_iter}
