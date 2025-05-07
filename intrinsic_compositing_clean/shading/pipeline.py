@@ -79,6 +79,12 @@ def spherical2cart(r, theta, phi):
     z = r * torch.cos(theta)
     return x, y, z
 
+def spherical2cart_np(r, theta, phi):
+    x = r * np.sin(theta) * np.cos(phi)
+    y = r * np.sin(theta) * np.sin(phi)
+    z = r * np.cos(theta)
+    return x, y, z
+    
 def run_optimization_no_backward(params_init, A, b, max_iter=500):
     # Función objetivo para minimizar
     A = A.numpy()
@@ -87,7 +93,7 @@ def run_optimization_no_backward(params_init, A, b, max_iter=500):
         theta, phi, r, offset = params
         
         # Conversión de coordenadas esféricas a cartesianas
-        x, y, z = spherical2cart(r, theta, phi)
+        x, y, z = spherical2cart_np(r, theta, phi)
         
         # Cálculo de la predicción
         dir_shd = (A[:, 0] * x) + (A[:, 1] * y) + (A[:, 2] * z)
@@ -220,7 +226,7 @@ def get_light_coeffs(shd, nrm, img, mask=None, bias=True):
     nrm_vis = nrm.copy()
     nrm_vis = draw_normal_circle(nrm_vis, (50, 50), 40)
     
-    x, y, z = spherical2cart(params[2], params[0], params[1])
+    x, y, z = spherical2cart_np(params[2], params[0], params[1])
 
     coeffs = torch.tensor([x, y, z]).reshape(3, 1).detach().numpy()
     out_shd = (nrm_vis.reshape(-1, 3) @ coeffs) + params[3].item()
